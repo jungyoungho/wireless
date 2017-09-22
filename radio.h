@@ -83,7 +83,19 @@ struct ieee80211_common
     uint8_t Type:2;
     uint8_t Sutype:4;
 
-    uint8_t Duration;
+    uint16_t Duration;
+};
+struct ieee80211_Null_function
+{
+    struct ieee80211_common c;
+    uint8_t Receiver_addr[6];
+    uint8_t Trasmitter_addr[6];
+    uint8_t Dst_addr[6];
+
+    uint16_t Fragment_num:4;
+    uint16_t Sequence_num:12;
+
+    uint32_t Frame_check_seq;
 };
 
 struct ieee80211_Probe_Request //beacon frame 와 Probe response랑 구조가 같음 나중에 완성하고 따로둘 필요없으면 합치자
@@ -244,7 +256,7 @@ struct ieee80211_wireless_LAN_mg_Beacon
     uint16_t DSSS_PFDM:1;
     uint16_t Delayed_Block_Ack:1;
     uint16_t Immediate_Block_Ack:1;
-};
+}__attribute__((__packed__));
 
 struct ieee80211_wireless_LAN_mg_Association
 {
@@ -328,6 +340,12 @@ struct Tagpara_DS_para_set
 {
      struct Tagpara_common Tc;
      uint8_t Current_Channel;
+};
+
+struct RSN_info
+{
+    uint8_t RSN_ver;
+    //AES는 보류
 };
 
 struct HT_Capabilities
